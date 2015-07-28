@@ -10,7 +10,7 @@ set novisualbell
 set t_vb=
 set background=dark
 set t_Co=256
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+" autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -25,11 +25,13 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'davidhalter/jedi-vim.git'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'fholgado/minibufexpl.vim'
+Plugin 'mattn/emmet-vim'
 
 call vundle#end()
 
@@ -58,7 +60,7 @@ set cursorline
 hi CursorLine term=bold cterm=bold guibg=Grey40
 
 " NERDTree
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
@@ -98,6 +100,14 @@ set ts=4 sw=4 et
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_default_mapping=0
 let g:indent_guides_exclude_filetypes=['help', 'nerdtree', 'startify', 'markdown']
-let g:indent_guides_auto_colors = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
+
+" miniBufExpl
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
