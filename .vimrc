@@ -8,6 +8,7 @@ set encoding=utf-8
 set noerrorbells
 set novisualbell
 set t_vb=
+set backspace=indent,eol,start
 set background=dark
 set t_Co=256
 " autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
@@ -32,10 +33,18 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'mattn/emmet-vim'
+Plugin 'groenewege/vim-less'
+Plugin 'Shougo/neocomplcache.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 
+filetype off
+filetype on
 filetype plugin indent on
+
 " vim-airline
 let g:airline_left_sep='>'
 let g:airline_right_sep='<'
@@ -46,10 +55,11 @@ let g:airline_detect_iminsert=0
 let g:airline_inactive_collapse=1
 " let g:airline_theme=luna
 let g:airline_powerline_fonts=1
-let g:airline_exclude_filenames = [] " see source for current list
-let g:airline_exclude_filetypes = [] " see source for current list
+" let g:airline_exclude_filenames = [] " see source for current list
+" let g:airline_exclude_filetypes = [] " see source for current list
 let g:airline_exclude_preview = 0
-let w:airline_disabled = 0
+" let g:airline#extensions#tabline#enabled = 1
+" let w:airline_disabled = 0
 set laststatus=2
 
 " colors
@@ -82,6 +92,7 @@ let g:ctrlp_cmd = 'CtrlP'
 " Jedi
 let g:jedi#auto_initialization = 1
 let g:jedi#popup_select_first = 0  
+let g:jedi#popup_on_dot = 0  
 let g:jedi#goto_command = "<leader>g"  
 let g:jedi#goto_definitions_command= "<leader>d"  
 let g:jedi#rename_command = "<leader>r"  
@@ -111,3 +122,17 @@ let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
+
+" vim-less
+
+" neocomplcache
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 4
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" autopairs
+" let g:AutoPairs = 
