@@ -1,7 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-syntax on
+"syntax on
+syntax enable
 let mapleader = ","
 let g:global_variable_for_plugin = 1
 set encoding=utf-8
@@ -11,6 +12,7 @@ set t_vb=
 set backspace=indent,eol,start
 set background=dark
 set t_Co=256
+set mouse=a
 " autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 
 " set the runtime path to include Vundle and initialize
@@ -38,6 +40,11 @@ Plugin 'Shougo/neocomplcache.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'altercation/vim-colors-solarized'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'rdnetto/YCM-Generator'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'jelera/vim-javascript-syntax'
 
 call vundle#end()
 
@@ -46,24 +53,35 @@ filetype on
 filetype plugin indent on
 
 " vim-airline
-let g:airline_left_sep='>'
-let g:airline_right_sep='<'
+let g:Powerline_symbols = 'fancy'
+" let g:airline_left_sep='>'
+" let g:airline_right_sep='<'
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_crypt=1
 let g:airline_detect_iminsert=0
 let g:airline_inactive_collapse=1
-" let g:airline_theme=luna
 let g:airline_powerline_fonts=1
-" let g:airline_exclude_filenames = [] " see source for current list
-" let g:airline_exclude_filetypes = [] " see source for current list
+let g:airline_exclude_filenames = [] " see source for current list
+let g:airline_exclude_filetypes = [] " see source for current list
 let g:airline_exclude_preview = 0
+let g:airline#extensions#syntastic#enabled = 1
 " let g:airline#extensions#tabline#enabled = 1
-" let w:airline_disabled = 0
 set laststatus=2
 
 " colors
-colorscheme badwolf
+" colorscheme material-theme
+" colorscheme badwolf
+let g:solarized_termcolors=256
+colors solarized
+let g:solarized_termtrans=1
+let g:solarized_visibility='normal'
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+
 set nu
 " set relativenumber
 set cursorline 
@@ -83,6 +101,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_disabled_filetypes=['html', 'tpl']
+let g:syntastic_html_checkers=['']
 
 " CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -117,22 +137,15 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
 
-" miniBufExpl
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 " vim-less
 
 " neocomplcache
-let g:neocomplcache_enable_at_startup = 1
+" let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
+" let g:neocomplcache_enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 4
+" let g:neocomplcache_min_syntax_length = 4
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" autopairs
-" let g:AutoPairs = 
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
