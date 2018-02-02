@@ -1,8 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-"syntax on
-syntax enable
+syntax on
 let mapleader = ","
 let g:global_variable_for_plugin = 1
 set encoding=utf-8
@@ -13,49 +12,60 @@ set backspace=indent,eol,start
 set background=dark
 set t_Co=256
 set mouse=a
+set clipboard=unnamed
+let python_highlight_all=1
+
+" 基于缩进或语法进行代码折叠
+set foldmethod=indent
+" set foldmethod=syntax
+" 启动 vim 时关闭折叠代码
+set nofoldenable
+
 " autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('~/.vim/bundle')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'scrooloose/syntastic'
-Plugin 'kien/ctrlp.vim'
-Plugin 'bling/vim-airline'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'davidhalter/jedi-vim.git'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'fholgado/minibufexpl.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'groenewege/vim-less'
-Plugin 'Shougo/neocomplcache.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'altercation/vim-colors-solarized'
-"Plugin 'Valloric/YouCompleteMe'
-"Plugin 'rdnetto/YCM-Generator'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'jelera/vim-javascript-syntax'
+" vim-plug
+call plug#begin('~/.vim/plugged')
 
-call vundle#end()
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'kien/ctrlp.vim'
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'"
 
-filetype off
+Plug 'Valloric/YouCompleteMe'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'easymotion/vim-easymotion'
+Plug 'ap/vim-buftabline'
+Plug 'Shougo/neocomplcache.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'jiangmiao/auto-pairs'
+Plug 'airblade/vim-gitgutter'
+Plug 'marijnh/tern_for_vim'
+
+Plug 'jdkanani/vim-material-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'flazz/vim-colorschemes'
+
+call plug#end()
+
+" filetype off
 filetype on
 filetype plugin indent on
 
 " vim-airline
 let g:Powerline_symbols = 'fancy'
-" let g:airline_left_sep='>'
-" let g:airline_right_sep='<'
+let g:airline_left_sep='>'
+let g:airline_right_sep='<'
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_crypt=1
@@ -72,6 +82,7 @@ set laststatus=2
 " colors
 " colorscheme material-theme
 " colorscheme badwolf
+" solarized theme
 let g:solarized_termcolors=256
 colors solarized
 let g:solarized_termtrans=1
@@ -99,10 +110,11 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_disabled_filetypes=['html', 'tpl']
 let g:syntastic_html_checkers=['']
+let g:syntastic_mode_map={"mode": "passive",}
 
 " CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -137,9 +149,18 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
 
-" YouCompleteMe
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-" vim-less
+" buftabline
+let g:buftabline_numbers = 2
+nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>2 <Plug>BufTabLine.Go(2)
+nmap <leader>3 <Plug>BufTabLine.Go(3)
+nmap <leader>4 <Plug>BufTabLine.Go(4)
+nmap <leader>5 <Plug>BufTabLine.Go(5)
+nmap <leader>6 <Plug>BufTabLine.Go(6)
+nmap <leader>7 <Plug>BufTabLine.Go(7)
+nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 <Plug>BufTabLine.Go(9)
+nmap <leader>0 <Plug>BufTabLine.Go(10)
 
 " neocomplcache
 " let g:neocomplcache_enable_at_startup = 1
@@ -149,3 +170,13 @@ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 " let g:neocomplcache_min_syntax_length = 4
 " <TAB>: completion.
 " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+
