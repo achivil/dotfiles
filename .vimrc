@@ -42,7 +42,7 @@ Plug 'honza/vim-snippets'"
 Plug 'Valloric/YouCompleteMe'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 Plug 'ap/vim-buftabline'
 Plug 'Shougo/neocomplcache.vim'
 Plug 'tpope/vim-fugitive'
@@ -170,6 +170,10 @@ nmap <leader>0 <Plug>BufTabLine.Go(10)
 " let g:neocomplcache_min_syntax_length = 4
 " <TAB>: completion.
 " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" YouCompleteMe
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
